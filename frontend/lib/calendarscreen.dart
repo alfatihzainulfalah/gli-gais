@@ -16,23 +16,15 @@ class _CalendarScreenState extends State<CalendarScreen> {
     screenHeight = MediaQuery.of(context).size.height;
     screenWeight = MediaQuery.of(context).size.width;
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Color(0xFF174A96),
+        foregroundColor: Colors.white,
+        title: Text("Riwayat Absensi", style: TextStyle(fontFamily: "Nexa Bold")),
+      ),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(20),
         child: Column(
           children: [
-            Container(
-              margin: EdgeInsets.only(top: 32),
-              alignment: Alignment.centerLeft,
-              child: Center(
-                child: Text(
-                  "My Attendence",
-                  style: TextStyle(
-                    fontFamily: "Nexa Bold",
-                    fontSize: screenWeight / 18,
-                  ),
-                ),
-              ),
-            ),
             Stack(
               children: [
                 bil("01 - Jun"),
