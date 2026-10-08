@@ -16,7 +16,7 @@ class _loginScreenState extends State<loginScreen> {
   double screenHeight = 0;
   double screenWeight = 0;
   bool obscurePassword = true;
-  
+
   static const Color primaryNavy = Color(0xFF174A96);
   static const Color darkNavy = Color(0xFF12366F);
   static const Color secondaryBlue = Color(0xFF2F6FD6);
@@ -227,7 +227,7 @@ class _loginScreenState extends State<loginScreen> {
           fontSize: screenWeight / 28,
           fontFamily: "Nexa Bold",
           color: textColor,
-        ),
+        ), 
       ),
     );
   }

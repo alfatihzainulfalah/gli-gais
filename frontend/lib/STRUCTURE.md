@@ -10,7 +10,9 @@ membaca seluruh kode.
 |---|---|---|
 | [main.dart](main.dart) | Entry point aplikasi (`main()` + `MyApp`). Membungkus app dengan `KeyboardVisibilityProvider` dan membuka `loginScreen` sebagai halaman pertama. | Root |
 | [loginscreen.dart](loginscreen.dart) | Halaman login (NIM + Password). Setelah tap tombol LOGIN, navigasi `pushReplacement` ke `HomeScreen`. | `/` (home screen app) |
-| [home.dart](home.dart) | Shell utama aplikasi setelah login. Berisi `IndexedStack` + memanggil widget **`NavBottom`** sebagai bottom navigation bar kustom (bukan `BottomNavigationBar` bawaan Flutter). | Setelah login |
+| [home.dart](home.dart) | Export entry untuk `HomeScreen`, agar import lama tetap berjalan setelah file home dipindah ke folder. | Setelah login |
+| [home/home_screen.dart](home/home_screen.dart) | Shell utama aplikasi setelah login. Berisi `IndexedStack` + memanggil widget **`NavBottom`** sebagai bottom navigation bar kustom (bukan `BottomNavigationBar` bawaan Flutter). | Setelah login |
+| [home/widgets/home_header.dart](home/widgets/home_header.dart) | Widget header home (`HomeHeader`) berisi sapaan, nama pengguna, avatar inisial, dan tombol notifikasi. | — |
 | [navigation/nav_bottom.dart](navigation/nav_bottom.dart) | Widget `NavBottom` — bottom navigation bar kustom yang reusable, dipakai oleh `home.dart`. | — |
 | [todayscreen.dart](todayscreen.dart) | Tab 1 (Beranda) — Dashboard akademik mahasiswa: `AcademicInformationCard` (jadwal kuliah hari ini), quick menu akademik 4x2 (8 menu), dan Pengumuman. | Tab index `0` |
 | [pembayaranscreen.dart](pembayaranscreen.dart) | Tab 2 (Pembayaran) — Daftar tagihan pembayaran mahasiswa/pegawai. Saat ini empty state ("Belum Ada Tagihan"). | Tab index `1` |
@@ -34,12 +36,12 @@ membaca seluruh kode.
 
 Bottom nav adalah widget terpisah `NavBottom` di
 [navigation/nav_bottom.dart](navigation/nav_bottom.dart), dipanggil dari
-`_HomeScreenState` ([home.dart](home.dart)) lewat properti
+`_HomeScreenState` ([home/home_screen.dart](home/home_screen.dart)) lewat properti
 `currentIndex` + callback `onTap`. Implementasinya memakai
 `Row` dari `Expanded` + `GestureDetector` (bukan widget
 `BottomNavigationBar` Flutter). Urutan tab mengikuti urutan
 `_navigationIcon`/`_navigationLabel` di `NavBottom` dan
-`IndexedStack.children` di `home.dart`:
+`IndexedStack.children` di `home/home_screen.dart`:
 
 | Index | Icon (FontAwesome) | Label | Screen | Keterangan |
 |---|---|---|---|---|
@@ -50,7 +52,7 @@ Bottom nav adalah widget terpisah `NavBottom` di
 
 Catatan implementasi:
 - State aktif tab (`currentIndex`, default `0`) tetap disimpan di
-  `_HomeScreenState` (`home.dart`); `NavBottom` hanya widget tampilan yang
+  `_HomeScreenState` (`home/home_screen.dart`); `NavBottom` hanya widget tampilan yang
   menerima `currentIndex` + `onTap`.
 - Warna aktif memakai `_primary = Color(0xFF174A96)` (navy resmi sesuai
   `CLAUDE.md`), warna tidak aktif `Color(0xFF718096)`.
@@ -81,7 +83,9 @@ Catatan implementasi:
    `nav_bottom.dart`, `pembayaranscreen.dart`, `menuscreen.dart`,
    `wisudascreen.dart`, `skripsiscreen.dart`, `kuesionerscreen.dart`, dan
    `widgets/` sudah menjadi acuan yang benar (navy `#174A96`, spacing &
-   radius sesuai `CLAUDE.md`).
+   radius sesuai `CLAUDE.md`). Implementasi home sekarang dipisah ke
+   `home/home_screen.dart` dan `home/widgets/home_header.dart`, sementara
+   `home.dart` hanya menjadi export entry.
 2. `profilescreen.dart` berisi data dummy (nama & foto contoh), belum
    terhubung ke data pegawai sebenarnya. Juga masih dipakai sebagai tab
    "Akun" walau isinya daftar tim, bukan profil pengguna yang login — perlu
